@@ -142,6 +142,29 @@ export function IconGithub({ className }: IconProps) {
   )
 }
 
+export function IconVideo({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="m10 8 6 4-6 4V8z"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect
+        x="2"
+        y="5"
+        width="20"
+        height="14"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.75"
+      />
+    </svg>
+  )
+}
+
 export function IconChevronDown({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>

@@ -36,6 +36,7 @@
 | **Log** | 课次反思（localStorage · 导出 JSON） |
 | **Calibrate** | 预测 → 尝试 → 对照 |
 | **Perspective** | 双视角讨论卡与桥接问题 |
+| **Community** | 教师录像 / 说课链接分享与投稿说明 |
 | **Safety** | 边界、数据与伦理 |
 | **Deploy** | 发布到 GitHub Pages 的步骤 |
 

@@ -11,6 +11,7 @@ export const zh: Messages = {
     perspective: '视角实验室',
     safety: '安全与范围',
     deploy: '部署',
+    community: '教师分享',
     github: 'GitHub',
     githubRepo: 'GitHub 仓库',
   },
@@ -36,6 +37,7 @@ export const zh: Messages = {
     iterationLog: '迭代日志',
     calibrationLab: '校准实验室',
     perspectiveLab: '视角实验室',
+    communityShares: '教师分享',
     safetyScope: '安全与范围',
     deployPages: '部署到 Pages',
     sourceGithub: 'GitHub 源码',
@@ -97,6 +99,11 @@ export const zh: Messages = {
     perBody:
       '粘贴中性冲突、命名两个角色，打印桥接问题用于班会或 advisory——支持视角采择、避免指责。',
     perCta: '打开视角实验室 →',
+    commEyebrow: '社区',
+    commTitle: '教师录像与说课分享',
+    commBody:
+      '看看其他老师如何带 Same-Week Bridge，或通过链接分享你的课堂片段、录屏或课件（YouTube、B 站、网盘等均可）。',
+    commCta: '去浏览与投稿 →',
     finalTitle: '准备打印第一份资料包？',
     finalBody: '选择周次、加入真实班级情境，一键生成双语带回家页面。',
     finalCta: '前往生成器',
@@ -317,5 +324,37 @@ export const zh: Messages = {
     script: '主持脚本',
     footer:
       'Same-Week Bridge · 视角实验室 · 仅用于有带领的讨论 · 语言经教育者审阅',
+  },
+  community: {
+    eyebrow: '社区',
+    title: '教师分享与录播',
+    lead:
+      '收录教育者自制的录像、说课与资料链接，与 Same-Week Bridge 配套使用。本站为静态页面，仅展示外链，暂不在此直接上传或托管视频文件。',
+    whyTitle: '为什么是「放链接」而不是本站上传？',
+    why1: 'GitHub Pages 是静态托管，没有接收大文件或做安全扫描的后端服务。',
+    why2: '把内容放在你熟悉的平台（如 YouTube 不公开列表、B 站、带权限的网盘）更符合学校知情同意与留存规范。',
+    why3: '维护者会在审核后，再把通过的内容加入下方公开列表。',
+    submitTitle: '分享你的录像或资料',
+    submitLead: '请先把视频或课件上传到你常用的平台，再通过 GitHub 把链接发给我们。',
+    submitStep1: '发布到 YouTube、Bilibili、Loom、Google 网盘等任意你可控的平台。',
+    submitStep2: '确保不出现未经同意的学生可识别信息（正脸、姓名、声音等）。',
+    submitStep3: '在 GitHub 新建一条简短 issue：附上链接与一句话说明；我们会整理进本页列表。',
+    submitIssue: '打开投稿表单（GitHub）',
+    privacyTitle: '同意与课堂安全',
+    privacyBody:
+      '只提交你有权公开或提供给本社区的材料。若无家长与学校书面同意，请勿包含学生姓名、正脸或清晰声纹；不确定时请打码或裁剪。',
+    listTitle: '已收录链接',
+    emptyTitle: '暂时还没有公开条目',
+    emptyBody:
+      '欢迎成为第一位分享者。提交 issue 后，维护者会在后续站点更新中把通过审核的条目加入本页。',
+    emptyCta: '在 GitHub 上推荐一条链接',
+    openLink: '打开链接',
+    platform: {
+      youtube: 'YouTube',
+      bilibili: '哔哩哔哩',
+      loom: 'Loom',
+      drive: '网盘 / 云盘',
+      other: '链接',
+    },
   },
 }

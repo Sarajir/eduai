@@ -8,6 +8,7 @@ export const en = {
     perspective: 'Perspective',
     safety: 'Safety',
     deploy: 'Deploy',
+    community: 'Community',
     github: 'GitHub',
     githubRepo: 'GitHub repo',
   },
@@ -33,6 +34,7 @@ export const en = {
     iterationLog: 'Iteration log',
     calibrationLab: 'Calibration lab',
     perspectiveLab: 'Perspective lab',
+    communityShares: 'Teacher shares',
     safetyScope: 'Safety & scope',
     deployPages: 'Deploy to Pages',
     sourceGithub: 'Source on GitHub',
@@ -101,6 +103,11 @@ export const en = {
     perBody:
       'Paste a neutral scenario, label two roles, and print bridge questions for circles or advisory blocks—supports perspective-taking without blaming.',
     perCta: 'Open Perspective →',
+    commEyebrow: 'Community',
+    commTitle: 'Teacher videos & walkthroughs',
+    commBody:
+      'See how others run Same-Week Bridge—or share your lesson clip, screen recording, or slide deck via a link (YouTube, Bilibili, Drive, etc.).',
+    commCta: 'Browse & submit →',
     finalTitle: 'Ready to print your first packet?',
     finalBody:
       'Choose a week, add your real classroom scenarios, and generate bilingual take-home pages in one pass.',
@@ -329,6 +336,42 @@ export const en = {
     script: 'Facilitator script',
     footer:
       'Same-Week Bridge · Perspective Lab · For facilitated discussion only · Educator-reviewed language',
+  },
+  community: {
+    eyebrow: 'Community',
+    title: 'Teacher shares & recordings',
+    lead:
+      'A growing list of educator-made videos, walkthroughs, and resources that complement Same-Week Bridge. Everything here is a link out—this site does not host uploads yet.',
+    whyTitle: 'Why links instead of uploads here?',
+    why1:
+      'GitHub Pages is static storage: there is no built-in server to receive large video files or scan them for safety.',
+    why2:
+      'Keeping media on platforms you control (YouTube unlisted, Bilibili, Google Drive with permissions) respects your school’s consent and retention rules.',
+    why3:
+      'Maintainers can review each suggestion before it appears in the public list below.',
+    submitTitle: 'Share your recording',
+    submitLead:
+      'Upload your video or slides to your preferred host, then send us the link through GitHub.',
+    submitStep1: 'Publish or upload to YouTube, Bilibili, Loom, Google Drive, etc.',
+    submitStep2: 'Make sure students are not identifiable without proper consent.',
+    submitStep3: 'Open a short issue with the link and a one-line description—we will curate the list.',
+    submitIssue: 'Open submission form (GitHub)',
+    privacyTitle: 'Consent & classroom safety',
+    privacyBody:
+      'Only submit materials you are allowed to share publicly or with this community. Avoid student names, faces, or voices without written consent from families and your institution. When in doubt, blur or crop.',
+    listTitle: 'Curated links',
+    emptyTitle: 'No public listings yet',
+    emptyBody:
+      'Be the first to add a walkthrough or demo. After you file an issue, a maintainer can add your entry to this page in the next site update.',
+    emptyCta: 'Suggest a link on GitHub',
+    openLink: 'Open link',
+    platform: {
+      youtube: 'YouTube',
+      bilibili: 'Bilibili',
+      loom: 'Loom',
+      drive: 'Drive / cloud',
+      other: 'Link',
+    },
   },
 } as const
 

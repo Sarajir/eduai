@@ -1,5 +1,12 @@
 import { Link } from 'react-router-dom'
-import { IconBook, IconGlobe, IconRefresh, IconSparkles, IconUsers } from '../components/icons'
+import {
+  IconBook,
+  IconGlobe,
+  IconRefresh,
+  IconSparkles,
+  IconUsers,
+  IconVideo,
+} from '../components/icons'
 import { useI18n } from '../i18n/context'
 
 export function Home() {
@@ -215,6 +222,31 @@ export function Home() {
             <span className="mt-4 inline-flex text-sm font-bold text-sky-700 group-hover:underline">
               {t('home.perCta')}
             </span>
+          </Link>
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-amber-200/90 bg-gradient-to-br from-amber-50/60 via-white to-orange-50/25 p-8 shadow-sm sm:p-10">
+        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div className="flex gap-4">
+            <div className="inline-flex h-fit rounded-xl bg-amber-100 p-3 text-amber-800 ring-1 ring-amber-200/70">
+              <IconVideo className="size-6" />
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800">
+                {t('home.commEyebrow')}
+              </p>
+              <h2 className="font-display mt-2 text-2xl font-semibold text-stone-900 sm:text-3xl">
+                {t('home.commTitle')}
+              </h2>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-stone-600">{t('home.commBody')}</p>
+            </div>
+          </div>
+          <Link
+            to="/community"
+            className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-amber-300/80 bg-white px-7 py-3.5 text-sm font-bold text-amber-950 shadow-sm transition hover:border-amber-400 hover:bg-amber-50"
+          >
+            {t('home.commCta')}
           </Link>
         </div>
       </section>

@@ -8,6 +8,7 @@ import { Safety } from './pages/Safety'
 import { HostingGuide } from './pages/HostingGuide'
 import { CalibrationLab } from './pages/CalibrationLab'
 import { PerspectiveLab } from './pages/PerspectiveLab'
+import { Community } from './pages/Community'
 
 const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '')
 
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/perspective" element={<PerspectiveLab />} />
           <Route path="/safety" element={<Safety />} />
           <Route path="/publish" element={<HostingGuide />} />
+          <Route path="/community" element={<Community />} />
         </Route>
       </Routes>
     </BrowserRouter>
