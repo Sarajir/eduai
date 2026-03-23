@@ -9,11 +9,6 @@
 [![Live site](https://img.shields.io/badge/🌐_线上站点-eduai-0d9488?style=for-the-badge&labelColor=134e4a)](https://sarajir.github.io/eduai/)
 [![Source](https://img.shields.io/badge/仓库-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/Sarajir/eduai)
 
-![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=222)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=fff)
-![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=fff)
-![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=fff)
-
 *界面支持 **English · 中文** · 浏览器本地运行 · 无需学生账号*
 
 <br/>
