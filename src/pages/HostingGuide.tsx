@@ -86,6 +86,21 @@ export function HostingGuide() {
         </p>
       </section>
 
+      <section className="rounded-2xl border border-stone-200 bg-amber-50/50 p-6">
+        <h2 className="font-display text-lg font-semibold text-amber-950">
+          若无法通过 git 推送 Actions 工作流文件
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-amber-950/90">
+          部分 Personal Access Token 没有 <code className="rounded bg-white px-1 font-mono text-xs">workflow</code>{' '}
+          权限时，GitHub 会拒绝包含 <code className="rounded bg-white px-1 font-mono text-xs">.github/workflows/</code>{' '}
+          的推送。可在网页上手动创建同名文件：复制仓库内{' '}
+          <code className="rounded bg-white px-1 font-mono text-xs">hosting/deploy-pages.workflow.yml</code>{' '}
+          的内容到{' '}
+          <code className="rounded bg-white px-1 font-mono text-xs">.github/workflows/deploy-pages.yml</code>
+          （去掉文件头两行说明注释亦可）。
+        </p>
+      </section>
+
       <section>
         <h2 className="font-display text-xl font-semibold text-stone-900">第一次发布：四步</h2>
         <ol className="mt-6 space-y-4">

@@ -7,6 +7,8 @@ const nav = [
   { to: '/program', label: 'Program' },
   { to: '/generator', label: 'Generator' },
   { to: '/log', label: 'Log' },
+  { to: '/calibration', label: 'Calibrate' },
+  { to: '/perspective', label: 'Perspective' },
   { to: '/safety', label: 'Safety' },
   { to: '/publish', label: 'Deploy' },
 ]
@@ -127,8 +129,9 @@ export function Layout() {
               </span>
             </div>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-stone-600">
-              Free toolkit for short SEL kernels, bilingual family alignment, and lightweight
-              iteration notes. Not therapy or crisis care.
+              Free toolkit for short SEL kernels, bilingual family alignment, lightweight
+              iteration notes, plus learning-science labs for calibration and perspective-taking.
+              Not therapy or crisis care.
             </p>
           </div>
           <div>
@@ -147,6 +150,16 @@ export function Layout() {
               <li>
                 <Link to="/log" className="text-stone-600 hover:text-bridge-700">
                   Iteration log
+                </Link>
+              </li>
+              <li>
+                <Link to="/calibration" className="text-stone-600 hover:text-bridge-700">
+                  Calibration lab
+                </Link>
+              </li>
+              <li>
+                <Link to="/perspective" className="text-stone-600 hover:text-bridge-700">
+                  Perspective lab
                 </Link>
               </li>
             </ul>

@@ -190,6 +190,63 @@ export function Home() {
         </div>
       </section>
 
+      <section className="rounded-3xl border border-stone-200 bg-white p-8 shadow-sm sm:p-10">
+        <div className="text-center sm:text-left">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-violet-600">
+            Learning science extensions
+          </p>
+          <h2 className="font-display mt-2 text-2xl font-semibold text-stone-900 sm:text-3xl">
+            Tie your pilot to metacognition & perspective-taking
+          </h2>
+          <p className="mx-auto mt-3 max-w-3xl text-stone-600 sm:mx-0">
+            The SEL arc covers communication skills. These labs add printable scaffolds that map
+            to research narratives you can own:{' '}
+            <strong className="text-stone-800">calibration</strong> (predict → try → compare) and{' '}
+            <strong className="text-stone-800">two-viewpoint cards</strong> for facilitated
+            discussions—no chatbot, no student accounts, educator-reviewed language only.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <Link
+            to="/calibration"
+            className="group rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50/90 to-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">
+              Calibration studio
+            </p>
+            <h3 className="font-display mt-2 text-xl font-semibold text-stone-900">
+              Metacognition micro-protocol
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-stone-600">
+              Generate a facilitator timeline plus student slips for confidence vs. outcome
+              comparisons—useful for math efficacy, reading checks, or emotion vocabulary
+              lessons.
+            </p>
+            <span className="mt-4 inline-flex text-sm font-bold text-violet-700 group-hover:underline">
+              Open Calibrate →
+            </span>
+          </Link>
+          <Link
+            to="/perspective"
+            className="group rounded-2xl border border-sky-200 bg-gradient-to-br from-sky-50/90 to-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <p className="text-xs font-bold uppercase tracking-wider text-sky-700">
+              Perspective studio
+            </p>
+            <h3 className="font-display mt-2 text-xl font-semibold text-stone-900">
+              Two-card discourse scaffold
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-stone-600">
+              Paste a neutral scenario, label two roles, and print bridge questions for circles or
+              advisory blocks—supports perspective-taking without blaming.
+            </p>
+            <span className="mt-4 inline-flex text-sm font-bold text-sky-700 group-hover:underline">
+              Open Perspective →
+            </span>
+          </Link>
+        </div>
+      </section>
+
       <section className="rounded-3xl border border-bridge-200 bg-bridge-900 px-8 py-12 text-center text-bridge-50 sm:px-12">
         <h2 className="font-display text-2xl font-semibold sm:text-3xl">
           Ready to print your first packet?

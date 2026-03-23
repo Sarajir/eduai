@@ -6,6 +6,8 @@ import { Generator } from './pages/Generator'
 import { Log } from './pages/Log'
 import { Safety } from './pages/Safety'
 import { HostingGuide } from './pages/HostingGuide'
+import { CalibrationLab } from './pages/CalibrationLab'
+import { PerspectiveLab } from './pages/PerspectiveLab'
 
 const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '')
 
@@ -18,6 +20,8 @@ export default function App() {
           <Route path="/program" element={<Program />} />
           <Route path="/generator" element={<Generator />} />
           <Route path="/log" element={<Log />} />
+          <Route path="/calibration" element={<CalibrationLab />} />
+          <Route path="/perspective" element={<PerspectiveLab />} />
           <Route path="/safety" element={<Safety />} />
           <Route path="/publish" element={<HostingGuide />} />
         </Route>
