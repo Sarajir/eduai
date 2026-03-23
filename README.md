@@ -72,34 +72,35 @@ npm run preview
 > 若用仓库根目录的开发版 `index.html`（引用 `/src/main.tsx`），线上会 **白屏**。
 
 <details>
-<summary><strong>方式 A · 推荐</strong> — 使用 <code>gh-pages</code> 分支</summary>
+<summary><strong>方式 A · 推荐</strong> — 推送到 <code>main</code> 自动部署（GitHub Actions）</summary>
 
 <br/>
 
-1. 执行：
+仓库已包含 [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)：每次 **push 到 `main`** 会在云端执行 `npm ci` + `npm run build`，并把 **`dist/`** 发布到 Pages。
 
-   ```bash
-   npm run deploy:gh-pages
-   ```
+**首次启用（只做一次）：**
 
-   会完成构建并把 `dist/` 推到远程分支 **`gh-pages`**。
+1. 打开 **GitHub → 仓库 → Settings → Pages**  
+2. **Build and deployment → Source** 选 **GitHub Actions**（不要再用 “Deploy from a branch” 指向 `main` 根目录）。  
+3. 到 **Actions** 里确认 **Deploy to GitHub Pages** 跑绿；约 1–3 分钟后刷新 [线上站点](https://sarajir.github.io/eduai/)。
 
-2. 打开 **GitHub → 仓库 → Settings → Pages**  
-   - **Source**：Deploy from a branch  
-   - **Branch**：`gh-pages` · 文件夹 **`/ (root)`**  
-   - 保存后等待约 1–3 分钟再访问 [线上站点](https://sarajir.github.io/eduai/)。
+若本机用 **Personal Access Token** 推送时提示无权修改 workflow，请在 GitHub 重新生成 token 并勾选 **`workflow`** 权限，或在网页上 **Add file** 手动创建同名 workflow 文件。
 
 <br/>
 
 </details>
 
 <details>
-<summary><strong>方式 B · 可选</strong> — GitHub Actions 自动部署</summary>
+<summary><strong>方式 B · 备用</strong> — 手动发布到 <code>gh-pages</code> 分支</summary>
 
 <br/>
 
-将 [`hosting/deploy-pages.workflow.yml`](hosting/deploy-pages.workflow.yml) 复制为 `.github/workflows/deploy-pages.yml`，在 **Pages** 里把 **Source** 设为 **GitHub Actions**。  
-若用 PAT 推送工作流，需勾选 **`workflow`** 权限；也可只在 GitHub 网页里新建该文件。
+```bash
+npm run deploy:gh-pages
+```
+
+然后在 **Settings → Pages** 把 **Source** 设为 **Deploy from a branch**，分支 **`gh-pages`**，文件夹 **`/ (root)`**。  
+（若已改用方式 A，请不要再同时依赖 `gh-pages`，以免混淆。）
 
 <br/>
 

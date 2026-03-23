@@ -1,9 +1,7 @@
-# Copy this file to: .github/workflows/deploy-pages.yml
-# (GitHub → Add file → Create new file) if your PAT cannot push workflow files.
-# Then enable Settings → Pages → Source: GitHub Actions.
+# Mirror of `.github/workflows/deploy-pages.yml` (kept here for copy/paste if needed).
+# Pages: Settings → Pages → Build and deployment → Source: **GitHub Actions**.
 #
-# Without Actions: from repo root run `npm run deploy:gh-pages`, then in the repo
-# Settings → Pages set Source to "Deploy from a branch", branch `gh-pages`, folder `/ (root)`.
+# Fallback without Actions: `npm run deploy:gh-pages` + Pages source = branch `gh-pages`.
 
 name: Deploy to GitHub Pages
 
