@@ -6,6 +6,11 @@ import {
   loadLog,
   type LogEntry,
 } from '../lib/storage'
+import { PageHeader } from '../components/PageHeader'
+import { IconRefresh } from '../components/icons'
+
+const inputClass =
+  'mt-1.5 w-full rounded-xl border border-stone-200 bg-white px-3.5 py-2.5 text-stone-900 shadow-sm outline-none focus:border-bridge-300 focus:ring-2 focus:ring-bridge-500/20'
 
 export function Log() {
   const [entries, setEntries] = useState<LogEntry[]>(() => loadLog())
@@ -47,35 +52,37 @@ export function Log() {
 
   return (
     <div className="space-y-10">
-      <div>
-        <h1 className="font-display text-3xl font-semibold text-stone-900 sm:text-4xl">
-          Iteration log
-        </h1>
-        <p className="mt-3 max-w-2xl text-stone-600">
-          Entries stay in this browser (localStorage). Export JSON before clearing site data
-          or switching devices.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Reflection"
+        title="Iteration log"
+        description="Entries stay in this browser (localStorage). Export JSON before clearing site data or switching devices. Avoid student names—describe cohort-level patterns only."
+      />
 
       <form
         onSubmit={submit}
-        className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+        className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8"
       >
-        <h2 className="font-display text-lg font-semibold text-stone-900">New entry</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm font-medium text-stone-700">
+        <div className="flex items-center gap-2 border-b border-stone-100 pb-4">
+          <span className="rounded-lg bg-bridge-100 p-2 text-bridge-700">
+            <IconRefresh className="size-5" />
+          </span>
+          <h2 className="font-display text-lg font-semibold text-stone-900">New session note</h2>
+        </div>
+
+        <div className="mt-6 grid gap-5 sm:grid-cols-2">
+          <label className="block text-sm font-semibold text-stone-700">
             Session date
             <input
               type="date"
               readOnly
-              className="mt-1 w-full rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-stone-600"
+              className={`${inputClass} bg-stone-50 text-stone-600`}
               value={new Date().toISOString().slice(0, 10)}
             />
           </label>
-          <label className="block text-sm font-medium text-stone-700">
+          <label className="block text-sm font-semibold text-stone-700">
             Week number
             <select
-              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-stone-900 outline-none ring-bridge-500/30 focus:ring-2"
+              className={inputClass}
               value={week}
               onChange={(e) => setWeek(Number(e.target.value))}
             >
@@ -87,63 +94,77 @@ export function Log() {
             </select>
           </label>
         </div>
-        <fieldset className="mt-4">
-          <legend className="text-sm font-medium text-stone-700">Participation</legend>
-          <div className="mt-2 flex flex-wrap gap-3">
+
+        <fieldset className="mt-6">
+          <legend className="text-sm font-semibold text-stone-700">Participation</legend>
+          <div className="mt-2 flex flex-wrap gap-2">
             {(['low', 'mixed', 'high'] as const).map((p) => (
-              <label key={p} className="flex items-center gap-2 text-sm text-stone-800">
+              <label
+                key={p}
+                className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold capitalize transition ${
+                  participation === p
+                    ? 'border-bridge-500 bg-bridge-50 text-bridge-900 shadow-sm'
+                    : 'border-stone-200 bg-white text-stone-700 hover:border-stone-300'
+                }`}
+              >
                 <input
                   type="radio"
                   name="participation"
                   checked={participation === p}
                   onChange={() => setParticipation(p)}
-                  className="size-4 text-bridge-600"
+                  className="sr-only"
                 />
                 {p}
               </label>
             ))}
           </div>
         </fieldset>
-        <label className="mt-4 flex items-center gap-2 text-sm font-medium text-stone-700">
+
+        <label className="mt-6 flex cursor-pointer items-center gap-3 rounded-xl border border-stone-100 bg-stone-50/80 px-4 py-3 text-sm font-semibold text-stone-800">
           <input
             type="checkbox"
             checked={heardTargetPhrase}
             onChange={(e) => setHeardTargetPhrase(e.target.checked)}
-            className="size-4 rounded border-stone-400 text-bridge-600"
+            className="size-4 rounded border-stone-300 text-bridge-600"
           />
           Heard a target phrase used spontaneously
         </label>
-        <label className="mt-4 block text-sm font-medium text-stone-700">
-          Sticky moment (which scenario or phrase felt off?)
+
+        <label className="mt-5 block text-sm font-semibold text-stone-700">
+          Sticky moment
+          <span className="block text-xs font-normal text-stone-500">
+            Which scenario or phrase felt off?
+          </span>
           <textarea
             required
             rows={2}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-stone-900 outline-none ring-bridge-500/30 focus:ring-2"
+            className={inputClass}
             value={stickyMoment}
             onChange={(e) => setStickyMoment(e.target.value)}
           />
         </label>
-        <label className="mt-4 block text-sm font-medium text-stone-700">
+        <label className="mt-4 block text-sm font-semibold text-stone-700">
           Change for next session
           <textarea
             required
             rows={2}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-stone-900 outline-none ring-bridge-500/30 focus:ring-2"
+            className={inputClass}
             value={changeForNext}
             onChange={(e) => setChangeForNext(e.target.value)}
           />
         </label>
-        <div className="mt-6 flex flex-wrap gap-3">
+
+        <div className="mt-8 flex flex-wrap gap-3">
           <button
             type="submit"
-            className="rounded-full bg-bridge-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-bridge-500"
+            className="rounded-full bg-bridge-600 px-7 py-3 text-sm font-bold text-white shadow-md hover:bg-bridge-500"
           >
             Save entry
           </button>
           <button
             type="button"
             onClick={download}
-            className="rounded-full border border-stone-300 bg-white px-6 py-2.5 text-sm font-semibold text-stone-800 hover:border-bridge-400"
+            className="rounded-full border-2 border-stone-200 bg-white px-7 py-3 text-sm font-bold text-stone-800 hover:border-bridge-300"
           >
             Export JSON
           </button>
@@ -151,37 +172,59 @@ export function Log() {
       </form>
 
       <section>
-        <h2 className="font-display text-lg font-semibold text-stone-900">History</h2>
+        <h2 className="font-display text-xl font-semibold text-stone-900">History</h2>
         {entries.length === 0 ? (
-          <p className="mt-3 text-sm text-stone-500">No entries yet.</p>
+          <div className="mt-6 rounded-3xl border border-dashed border-stone-300 bg-white/60 px-8 py-16 text-center">
+            <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-stone-100 text-stone-400">
+              <IconRefresh className="size-8" />
+            </div>
+            <p className="mt-4 font-medium text-stone-700">No entries yet</p>
+            <p className="mx-auto mt-2 max-w-sm text-sm text-stone-500">
+              After your next session, log what worked and what you would rephrase—small notes
+              compound into a strong pilot story.
+            </p>
+          </div>
         ) : (
-          <ul className="mt-4 space-y-4">
+          <ul className="mt-6 space-y-4">
             {entries.map((e) => (
               <li
                 key={e.id}
-                className="rounded-xl border border-stone-200 bg-white/90 p-4 text-sm shadow-sm"
+                className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm transition hover:border-bridge-200/80 hover:shadow-md"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-semibold text-stone-900">
-                    Week {e.week} · {e.date}
-                  </span>
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <span className="inline-flex rounded-full bg-bridge-100 px-3 py-0.5 text-xs font-bold text-bridge-900">
+                      Week {e.week}
+                    </span>
+                    <span className="ml-2 text-sm font-semibold text-stone-500">{e.date}</span>
+                  </div>
                   <button
                     type="button"
                     onClick={() => remove(e.id)}
-                    className="text-xs font-medium text-red-600 hover:underline"
+                    className="text-xs font-bold uppercase tracking-wide text-red-600 hover:underline"
                   >
                     Delete
                   </button>
                 </div>
-                <p className="mt-2 text-stone-600">
-                  Participation: <strong>{e.participation}</strong> · Target phrase heard:{' '}
-                  <strong>{e.heardTargetPhrase ? 'yes' : 'no'}</strong>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold capitalize text-stone-700">
+                    {e.participation} energy
+                  </span>
+                  <span
+                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                      e.heardTargetPhrase
+                        ? 'bg-emerald-100 text-emerald-800'
+                        : 'bg-stone-100 text-stone-600'
+                    }`}
+                  >
+                    Phrase: {e.heardTargetPhrase ? 'heard' : 'not observed'}
+                  </span>
+                </div>
+                <p className="mt-4 text-sm text-stone-700">
+                  <span className="font-semibold text-stone-900">Sticky:</span> {e.stickyMoment}
                 </p>
-                <p className="mt-2 text-stone-700">
-                  <span className="font-medium text-stone-800">Sticky:</span> {e.stickyMoment}
-                </p>
-                <p className="mt-1 text-stone-700">
-                  <span className="font-medium text-stone-800">Next tweak:</span>{' '}
+                <p className="mt-2 text-sm text-stone-700">
+                  <span className="font-semibold text-stone-900">Next tweak:</span>{' '}
                   {e.changeForNext}
                 </p>
               </li>

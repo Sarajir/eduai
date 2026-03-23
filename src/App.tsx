@@ -5,10 +5,13 @@ import { Program } from './pages/Program'
 import { Generator } from './pages/Generator'
 import { Log } from './pages/Log'
 import { Safety } from './pages/Safety'
+import { HostingGuide } from './pages/HostingGuide'
+
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '')
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename || undefined}>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -16,6 +19,7 @@ export default function App() {
           <Route path="/generator" element={<Generator />} />
           <Route path="/log" element={<Log />} />
           <Route path="/safety" element={<Safety />} />
+          <Route path="/publish" element={<HostingGuide />} />
         </Route>
       </Routes>
     </BrowserRouter>
