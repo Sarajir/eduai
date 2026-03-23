@@ -84,7 +84,11 @@ npm run preview
 2. **Build and deployment → Source** 选 **GitHub Actions**（不要再用 “Deploy from a branch” 指向 `main` 根目录）。  
 3. 到 **Actions** 里确认 **Deploy to GitHub Pages** 跑绿；约 1–3 分钟后刷新 [线上站点](https://sarajir.github.io/eduai/)。
 
-若本机用 **Personal Access Token** 推送时提示无权修改 workflow，请在 GitHub 重新生成 token 并勾选 **`workflow`** 权限，或在网页上 **Add file** 手动创建同名 workflow 文件。
+若本机用 **HTTPS + Personal Access Token** 推送时提示缺少 **`workflow` scope**：
+
+1. 打开 [Personal access tokens](https://github.com/settings/tokens)，编辑正在使用的 token，勾选 **`workflow`**，保存后在本机再执行 `git push`；或  
+2. 把 `git remote` 改成 **SSH**（`git@github.com:Sarajir/eduai.git`），用已配置的 SSH 密钥推送，通常可绕过 PAT 的 workflow 限制；或  
+3. 在仓库网页 **Add file → Create new file**，路径填 **`.github/workflows/deploy-pages.yml`**，将 [`hosting/deploy-pages.workflow.yml`](hosting/deploy-pages.workflow.yml) 里从 **`name: Deploy`** 到文件末尾整段粘贴进去，提交后本地执行 `git pull` 与远端对齐。
 
 <br/>
 
