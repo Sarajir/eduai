@@ -37,6 +37,7 @@
 | **Calibrate** | 预测 → 尝试 → 对照 |
 | **Perspective** | 双视角讨论卡与桥接问题 |
 | **Community** | 教师录像 / 说课链接分享与投稿说明 |
+| **Support** | 官方危机热线与急救入口（本站不提供咨询论坛或通话） |
 | **Safety** | 边界、数据与伦理 |
 | **Deploy** | 发布到 GitHub Pages 的步骤 |
 

@@ -11,6 +11,7 @@ const navConfig = [
   { to: '/calibration', key: 'calibrate' as const },
   { to: '/perspective', key: 'perspective' as const },
   { to: '/safety', key: 'safety' as const },
+  { to: '/support', key: 'support' as const },
   { to: '/community', key: 'community' as const },
   { to: '/publish', key: 'deploy' as const },
 ]
@@ -227,6 +228,11 @@ export function Layout() {
               <li>
                 <Link to="/safety" className="text-stone-600 hover:text-bridge-700">
                   {t('footer.safetyScope')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/support" className="text-stone-600 hover:text-bridge-700">
+                  {t('footer.supportCrisis')}
                 </Link>
               </li>
               <li>

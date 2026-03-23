@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/PageHeader'
 import { IconShield } from '../components/icons'
 import { useI18n } from '../i18n/context'
@@ -57,6 +58,12 @@ export function Safety() {
             </li>
           </ul>
           <p className="mt-4 text-sm text-amber-900/80">{t('safety.crisisFoot')}</p>
+          <Link
+            to="/support"
+            className="mt-4 inline-flex text-sm font-bold text-amber-900 underline-offset-2 hover:underline"
+          >
+            {t('safety.supportMore')}
+          </Link>
         </section>
 
         <section className="rounded-2xl border border-stone-200 bg-stone-50/60 p-6">

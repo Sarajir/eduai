@@ -7,8 +7,9 @@ export const en = {
     calibrate: 'Calibrate',
     perspective: 'Perspective',
     safety: 'Safety',
-    deploy: 'Deploy',
+    support: 'Support',
     community: 'Community',
+    deploy: 'Deploy',
     github: 'GitHub',
     githubRepo: 'GitHub repo',
   },
@@ -35,6 +36,7 @@ export const en = {
     calibrationLab: 'Calibration lab',
     perspectiveLab: 'Perspective lab',
     communityShares: 'Teacher shares',
+    supportCrisis: 'Support & hotlines',
     safetyScope: 'Safety & scope',
     deployPages: 'Deploy to Pages',
     sourceGithub: 'Source on GitHub',
@@ -229,12 +231,62 @@ export const en = {
     c911rest: '— Medical or safety emergencies.',
     crisisFoot:
       'Add your district’s mandated reporter guidance and local hotlines to printed packets for families.',
+    supportMore: 'More hotlines & limits of this site →',
     dataTitle: 'Data & privacy',
     dataBody:
       'The iteration log stores notes in your browser only. Do not enter student names or identifiable information. Use cohort-level descriptions instead.',
     aiTitle: 'AI use (future modules)',
     aiBody:
       'If you later connect generative AI helpers, keep humans in the loop: educators should review every scenario before use, and AI outputs should never override safeguarding policies.',
+  },
+  support: {
+    eyebrow: 'Crisis & help-seeking',
+    title: 'Professional support — not a forum or call service',
+    lead:
+      'Same-Week Bridge does not host anonymous counseling, peer therapy, voice calls, or automated danger alerts. If you or someone else may be in danger, use emergency services and licensed crisis lines below.',
+    emergencyTitle: 'Immediate danger to life',
+    emergencyBody:
+      'If there is an active emergency (someone is about to hurt themselves or others, or needs urgent medical care), call local emergency services first—not this website.',
+    btn911: 'Call 911 (US emergency)',
+    btn988: 'Call or text 988 (US crisis)',
+    btn110: 'Call 110 (China police)',
+    btn120: 'Call 120 (China medical)',
+    emergencyFoot:
+      'Phone buttons work on many mobile browsers; on desktop you may need to dial manually. Use the number for where you are physically located.',
+    proTitle: 'Licensed crisis lines (examples)',
+    proLead:
+      'These are official or nationally coordinated services—not Same-Week Bridge. Availability and language vary by region.',
+    us988Title: 'United States — 988 Suicide & Crisis Lifeline',
+    us988Body:
+      'Free, confidential support 24/7. Call or text 988, or use chat at 988lifeline.org. For TTY and other access options, see their site.',
+    dial988: 'Call or text 988',
+    open988site: '988lifeline.org (chat & info)',
+    cn12356Title: 'China — 12356 psychological aid hotline',
+    cn12356Body:
+      'China is rolling out 12356 as a unified national psychological assistance number; coverage and hours may still vary by city—check local announcements if the line is busy or not yet active in your area.',
+    dial12356: 'Dial 12356',
+    openGovNotice: 'Official policy notice (Chinese)',
+    notHereTitle: 'Why we do not build “forum + anonymous calls” here',
+    notHere1:
+      'Peer “counseling” and timed voice sessions require clinical governance, malpractice coverage, and trained responders—far beyond a static classroom SEL site.',
+    notHere2:
+      'Voice masking and anonymous matching need secure real-time infrastructure (and still do not replace professionals). This repository has no backend or call servers.',
+    notHere3:
+      'Automated “danger word” alerts create many false alarms and dangerous misses; real crisis services use trained counselors, not keyword bots.',
+    notHere4:
+      'A hidden “staff-only” page on a public repo is not secure; real incident dashboards need authentication, audit logs, and legal agreements.',
+    notHere5:
+      'Summaries of mental-health chats are sensitive health-adjacent data and must not be processed casually without consent and compliance review.',
+    alertMythTitle: 'About automatic alerts and “playing around”',
+    alertMythBody:
+      'Responsible systems rarely rely on a few keywords to call the police or page staff: jokes, slang, movie quotes, and coded language break both ways (false positives and false negatives). Schools should follow district threat-assessment and mandated-reporter protocols with humans in charge—not a hobby web app.',
+    schoolTitle: 'At school? Start with people you already have',
+    schoolBody:
+      'Students should be directed to your designated counselor, social worker, or administrator using the procedures your district already approved. Educators: see Safety & scope for facilitator duties.',
+    linkSafety: 'Read Safety & scope →',
+    futureTitle: 'If you want a separate, serious product later',
+    futureBody:
+      'Building a compliant mental-health or crisis platform usually needs lawyers, licensed partners, 24/7 staffing, data protection, and regional regulatory review. It should be a dedicated project—not a hidden feature inside an open-source SEL printable toolkit.',
   },
   hosting: {
     eyebrow: 'Hosting',
