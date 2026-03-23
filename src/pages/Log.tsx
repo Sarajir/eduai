@@ -8,11 +8,13 @@ import {
 } from '../lib/storage'
 import { PageHeader } from '../components/PageHeader'
 import { IconRefresh } from '../components/icons'
+import { useI18n } from '../i18n/context'
 
 const inputClass =
   'mt-1.5 w-full rounded-xl border border-stone-200 bg-white px-3.5 py-2.5 text-stone-900 shadow-sm outline-none focus:border-bridge-300 focus:ring-2 focus:ring-bridge-500/20'
 
 export function Log() {
+  const { t } = useI18n()
   const [entries, setEntries] = useState<LogEntry[]>(() => loadLog())
   const [week, setWeek] = useState(1)
   const [participation, setParticipation] = useState<LogEntry['participation']>('mixed')
@@ -37,7 +39,7 @@ export function Log() {
   }
 
   const remove = (id: string) => {
-    if (confirm('Delete this entry?')) setEntries(deleteLogEntry(id))
+    if (confirm(t('log.confirmDelete'))) setEntries(deleteLogEntry(id))
   }
 
   const download = () => {
@@ -50,13 +52,11 @@ export function Log() {
     URL.revokeObjectURL(url)
   }
 
+  const partKeys = ['low', 'mixed', 'high'] as const
+
   return (
     <div className="space-y-10">
-      <PageHeader
-        eyebrow="Reflection"
-        title="Iteration log"
-        description="Entries stay in this browser (localStorage). Export JSON before clearing site data or switching devices. Avoid student names—describe cohort-level patterns only."
-      />
+      <PageHeader eyebrow={t('log.eyebrow')} title={t('log.title')} description={t('log.desc')} />
 
       <form
         onSubmit={submit}
@@ -66,12 +66,12 @@ export function Log() {
           <span className="rounded-lg bg-bridge-100 p-2 text-bridge-700">
             <IconRefresh className="size-5" />
           </span>
-          <h2 className="font-display text-lg font-semibold text-stone-900">New session note</h2>
+          <h2 className="font-display text-lg font-semibold text-stone-900">{t('log.newTitle')}</h2>
         </div>
 
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
           <label className="block text-sm font-semibold text-stone-700">
-            Session date
+            {t('log.sessionDate')}
             <input
               type="date"
               readOnly
@@ -80,7 +80,7 @@ export function Log() {
             />
           </label>
           <label className="block text-sm font-semibold text-stone-700">
-            Week number
+            {t('log.weekNum')}
             <select
               className={inputClass}
               value={week}
@@ -88,7 +88,7 @@ export function Log() {
             >
               {Array.from({ length: 8 }, (_, i) => i + 1).map((n) => (
                 <option key={n} value={n}>
-                  Week {n}
+                  {n}
                 </option>
               ))}
             </select>
@@ -96,9 +96,9 @@ export function Log() {
         </div>
 
         <fieldset className="mt-6">
-          <legend className="text-sm font-semibold text-stone-700">Participation</legend>
+          <legend className="text-sm font-semibold text-stone-700">{t('log.participation')}</legend>
           <div className="mt-2 flex flex-wrap gap-2">
-            {(['low', 'mixed', 'high'] as const).map((p) => (
+            {partKeys.map((p) => (
               <label
                 key={p}
                 className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold capitalize transition ${
@@ -114,7 +114,7 @@ export function Log() {
                   onChange={() => setParticipation(p)}
                   className="sr-only"
                 />
-                {p}
+                {t(`log.${p}`)}
               </label>
             ))}
           </div>
@@ -127,14 +127,12 @@ export function Log() {
             onChange={(e) => setHeardTargetPhrase(e.target.checked)}
             className="size-4 rounded border-stone-300 text-bridge-600"
           />
-          Heard a target phrase used spontaneously
+          {t('log.heardPhrase')}
         </label>
 
         <label className="mt-5 block text-sm font-semibold text-stone-700">
-          Sticky moment
-          <span className="block text-xs font-normal text-stone-500">
-            Which scenario or phrase felt off?
-          </span>
+          {t('log.sticky')}
+          <span className="block text-xs font-normal text-stone-500">{t('log.stickyHint')}</span>
           <textarea
             required
             rows={2}
@@ -144,7 +142,7 @@ export function Log() {
           />
         </label>
         <label className="mt-4 block text-sm font-semibold text-stone-700">
-          Change for next session
+          {t('log.changeNext')}
           <textarea
             required
             rows={2}
@@ -159,30 +157,27 @@ export function Log() {
             type="submit"
             className="rounded-full bg-bridge-600 px-7 py-3 text-sm font-bold text-white shadow-md hover:bg-bridge-500"
           >
-            Save entry
+            {t('log.save')}
           </button>
           <button
             type="button"
             onClick={download}
             className="rounded-full border-2 border-stone-200 bg-white px-7 py-3 text-sm font-bold text-stone-800 hover:border-bridge-300"
           >
-            Export JSON
+            {t('log.export')}
           </button>
         </div>
       </form>
 
       <section>
-        <h2 className="font-display text-xl font-semibold text-stone-900">History</h2>
+        <h2 className="font-display text-xl font-semibold text-stone-900">{t('log.history')}</h2>
         {entries.length === 0 ? (
           <div className="mt-6 rounded-3xl border border-dashed border-stone-300 bg-white/60 px-8 py-16 text-center">
             <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-stone-100 text-stone-400">
               <IconRefresh className="size-8" />
             </div>
-            <p className="mt-4 font-medium text-stone-700">No entries yet</p>
-            <p className="mx-auto mt-2 max-w-sm text-sm text-stone-500">
-              After your next session, log what worked and what you would rephrase—small notes
-              compound into a strong pilot story.
-            </p>
+            <p className="mt-4 font-medium text-stone-700">{t('log.emptyTitle')}</p>
+            <p className="mx-auto mt-2 max-w-sm text-sm text-stone-500">{t('log.emptyBody')}</p>
           </div>
         ) : (
           <ul className="mt-6 space-y-4">
@@ -194,7 +189,7 @@ export function Log() {
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <span className="inline-flex rounded-full bg-bridge-100 px-3 py-0.5 text-xs font-bold text-bridge-900">
-                      Week {e.week}
+                      {t('generator.weekN')} {e.week}
                     </span>
                     <span className="ml-2 text-sm font-semibold text-stone-500">{e.date}</span>
                   </div>
@@ -203,12 +198,12 @@ export function Log() {
                     onClick={() => remove(e.id)}
                     className="text-xs font-bold uppercase tracking-wide text-red-600 hover:underline"
                   >
-                    Delete
+                    {t('log.delete')}
                   </button>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold capitalize text-stone-700">
-                    {e.participation} energy
+                    {t(`log.${e.participation}`)} {t('log.energy')}
                   </span>
                   <span
                     className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
@@ -217,14 +212,16 @@ export function Log() {
                         : 'bg-stone-100 text-stone-600'
                     }`}
                   >
-                    Phrase: {e.heardTargetPhrase ? 'heard' : 'not observed'}
+                    {t('log.phrase')}{' '}
+                    {e.heardTargetPhrase ? t('log.heardY') : t('log.heardN')}
                   </span>
                 </div>
                 <p className="mt-4 text-sm text-stone-700">
-                  <span className="font-semibold text-stone-900">Sticky:</span> {e.stickyMoment}
+                  <span className="font-semibold text-stone-900">{t('log.stickyLbl')}</span>{' '}
+                  {e.stickyMoment}
                 </p>
                 <p className="mt-2 text-sm text-stone-700">
-                  <span className="font-semibold text-stone-900">Next tweak:</span>{' '}
+                  <span className="font-semibold text-stone-900">{t('log.nextLbl')}</span>{' '}
                   {e.changeForNext}
                 </p>
               </li>

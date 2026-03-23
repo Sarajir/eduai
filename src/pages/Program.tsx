@@ -1,33 +1,31 @@
 import { Link } from 'react-router-dom'
 import { IconChevronDown } from '../components/icons'
 import { PageHeader } from '../components/PageHeader'
-import { PROGRAM_GOAL, SESSION_SKELETON, WEEKS } from '../data/weeks'
+import { getLocalizedWeeks, getProgramGoal, getSessionSkeleton } from '../data/weekLocale'
+import { useI18n } from '../i18n/context'
 
 export function Program() {
+  const { lang, t } = useI18n()
+  const goal = getProgramGoal(lang)
+  const skeleton = getSessionSkeleton(lang)
+  const weeks = getLocalizedWeeks(lang)
+
   return (
     <div>
-      <PageHeader
-        eyebrow="Curriculum"
-        title="8-week “Say-It” arc"
-        description={PROGRAM_GOAL}
-      >
+      <PageHeader eyebrow={t('program.eyebrow')} title={t('program.title')} description={goal}>
         <Link
           to="/generator"
           className="inline-flex rounded-full bg-bridge-600 px-5 py-2.5 text-sm font-bold text-white shadow hover:bg-bridge-500"
         >
-          Generate materials for a week →
+          {t('program.ctaGen')}
         </Link>
       </PageHeader>
 
       <section className="mb-12 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
-        <h2 className="font-display text-xl font-semibold text-stone-900">
-          Session skeleton (repeat every week)
-        </h2>
-        <p className="mt-2 text-sm text-stone-600">
-          Same structure builds predictability; only scenarios and phrases change.
-        </p>
+        <h2 className="font-display text-xl font-semibold text-stone-900">{t('program.skTitle')}</h2>
+        <p className="mt-2 text-sm text-stone-600">{t('program.skSub')}</p>
         <ul className="mt-6 space-y-0 divide-y divide-stone-100 rounded-xl border border-stone-100 bg-stone-50/50">
-          {SESSION_SKELETON.map((row) => (
+          {skeleton.map((row) => (
             <li
               key={row.t}
               className="flex flex-col gap-1 px-4 py-4 sm:flex-row sm:items-center sm:gap-8"
@@ -45,7 +43,7 @@ export function Program() {
       </section>
 
       <div className="mb-6 flex flex-wrap gap-2">
-        {WEEKS.map((w) => (
+        {weeks.map((w) => (
           <a
             key={w.week}
             href={`#week-${w.week}`}
@@ -57,7 +55,7 @@ export function Program() {
       </div>
 
       <div className="space-y-4">
-        {WEEKS.map((w) => (
+        {weeks.map((w) => (
           <details
             key={w.week}
             id={`week-${w.week}`}
@@ -66,11 +64,9 @@ export function Program() {
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 [&::-webkit-details-marker]:hidden">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full bg-bridge-100 px-3 py-1 text-xs font-bold uppercase tracking-wide text-bridge-800">
-                  Week {w.week}
+                  {lang === 'zh' ? `第 ${w.week} 周` : `Week ${w.week}`}
                 </span>
-                <span className="font-display text-lg font-semibold text-stone-900">
-                  {w.title}
-                </span>
+                <span className="font-display text-lg font-semibold text-stone-900">{w.title}</span>
               </div>
               <IconChevronDown className="size-5 shrink-0 text-stone-400 transition group-open:rotate-180" />
             </summary>
@@ -79,7 +75,7 @@ export function Program() {
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 <div className="rounded-xl border border-stone-100 bg-stone-50/80 p-4">
                   <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
-                    Golden phrases (EN)
+                    {t('program.goldenEn')}
                   </p>
                   <ul className="mt-2 space-y-1.5 text-sm font-medium text-stone-800">
                     {w.mantraEn.map((m) => (
@@ -92,7 +88,7 @@ export function Program() {
                 </div>
                 <div className="rounded-xl border border-bridge-100 bg-bridge-50/40 p-4">
                   <p className="text-xs font-bold uppercase tracking-wider text-bridge-800">
-                    句式参考（中文）
+                    {t('program.goldenZh')}
                   </p>
                   <ul className="mt-2 space-y-1.5 text-sm font-medium text-stone-800">
                     {w.mantraZh.map((m) => (
@@ -106,7 +102,7 @@ export function Program() {
               </div>
               <div className="mt-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
-                  Starter scenarios
+                  {t('program.scenarios')}
                 </p>
                 <ul className="mt-2 list-inside list-disc text-sm text-stone-700">
                   {w.scenarios.map((s) => (
@@ -115,7 +111,7 @@ export function Program() {
                 </ul>
               </div>
               <p className="mt-4 rounded-lg border border-amber-200/60 bg-amber-50/50 px-3 py-2 text-sm text-amber-950">
-                <span className="font-semibold">Coach note:</span> {w.teacherNote}
+                <span className="font-semibold">{t('program.coach')}</span> {w.teacherNote}
               </p>
             </div>
           </details>

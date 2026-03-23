@@ -1,108 +1,81 @@
+import type { ReactNode } from 'react'
 import { PageHeader } from '../components/PageHeader'
+import { useI18n } from '../i18n/context'
 
-const steps = [
-  {
-    title: '打开 GitHub Pages 设置',
-    body: (
-      <>
-        进入仓库{' '}
-        <a
-          href="https://github.com/Sarajir/eduai/settings/pages"
-          className="font-semibold text-bridge-700 underline-offset-2 hover:underline"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Settings → Pages
-        </a>
-        。
-      </>
-    ),
-  },
-  {
-    title: '选择 GitHub Actions 作为来源',
-    body: (
-      <>
-        在 <strong>Build and deployment</strong> 中，将 <strong>Source</strong> 设为{' '}
-        <strong>GitHub Actions</strong>（不要选 Deploy from a branch 的{' '}
-        <code className="rounded bg-stone-200/80 px-1.5 py-0.5 text-sm">gh-pages</code>，除非你
-        自行改了工作流）。
-      </>
-    ),
-  },
-  {
-    title: '等待首次构建',
-    body: (
-      <>
-        打开 <strong>Actions</strong> 标签，查看 <strong>Deploy to GitHub Pages</strong> 是否成功。
-        第一次大约 1–3 分钟。
-      </>
-    ),
-  },
-  {
-    title: '如遇权限错误',
-    body: (
-      <>
-        在 <strong>Settings → Actions → General</strong> 检查{' '}
-        <strong>Workflow permissions</strong>，并确认 <strong>Pages</strong> 已启用。
-      </>
-    ),
-  },
-]
+const REPO = 'https://github.com/Sarajir/eduai'
+const PAGES_SETTINGS = 'https://github.com/Sarajir/eduai/settings/pages'
+const LIVE = 'https://sarajir.github.io/eduai/'
+
+const linkClass =
+  'font-semibold text-bridge-700 underline-offset-2 hover:underline'
+const codeSm =
+  'rounded bg-stone-200/80 px-1.5 py-0.5 text-sm font-mono'
+const codeXs = 'rounded bg-white px-1 font-mono text-xs'
 
 export function HostingGuide() {
+  const { t } = useI18n()
+
+  const steps: { title: string; body: ReactNode }[] = [
+    {
+      title: t('hosting.s1t'),
+      body: (
+        <>
+          {t('hosting.s1bPre')}
+          <a href={PAGES_SETTINGS} className={linkClass} target="_blank" rel="noreferrer">
+            {t('hosting.s1bLink')}
+          </a>
+          {t('hosting.s1bPost')}
+        </>
+      ),
+    },
+    { title: t('hosting.s2t'), body: t('hosting.s2b') },
+    { title: t('hosting.s3t'), body: t('hosting.s3b') },
+    { title: t('hosting.s4t'), body: t('hosting.s4b') },
+  ]
+
   return (
     <div className="max-w-3xl space-y-12">
       <PageHeader
-        eyebrow="Hosting"
-        title="如何把网站发布到 GitHub Pages"
+        eyebrow={t('hosting.eyebrow')}
+        title={t('hosting.title')}
         description={
           <>
-            仓库{' '}
-            <a
-              href="https://github.com/Sarajir/eduai"
-              className="font-semibold text-bridge-700 underline-offset-2 hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
+            {t('hosting.introRepo')}{' '}
+            <a href={REPO} className={linkClass} target="_blank" rel="noreferrer">
               github.com/Sarajir/eduai
             </a>
-            。配置完成后，每次推送到 <code className="rounded bg-stone-200 px-1.5 py-0.5 text-sm">main</code>{' '}
-            都会自动构建并更新线上站点。
+            {t('hosting.introTail')}
           </>
         }
       />
 
       <section className="rounded-3xl border border-bridge-200 bg-gradient-to-br from-bridge-50 via-white to-bridge-50/30 p-8 shadow-sm">
-        <h2 className="font-display text-xl font-semibold text-bridge-900">上线后的地址</h2>
-        <p className="mt-2 text-sm text-stone-600">项目站（示例）：</p>
+        <h2 className="font-display text-xl font-semibold text-bridge-900">{t('hosting.liveTitle')}</h2>
+        <p className="mt-2 text-sm text-stone-600">{t('hosting.liveSub')}</p>
         <p className="mt-2 break-all rounded-xl bg-white/80 px-4 py-3 font-mono text-sm font-medium text-stone-900 ring-1 ring-bridge-100">
-          https://sarajir.github.io/eduai/
+          {LIVE}
         </p>
         <p className="mt-3 text-sm text-stone-600">
-          子路由示例：{' '}
+          {t('hosting.liveChild')}{' '}
           <span className="break-all font-mono text-xs text-stone-800">
-            https://sarajir.github.io/eduai/generator
+            {LIVE.replace(/\/$/, '')}/generator
           </span>
         </p>
       </section>
 
       <section className="rounded-2xl border border-stone-200 bg-amber-50/50 p-6">
-        <h2 className="font-display text-lg font-semibold text-amber-950">
-          若无法通过 git 推送 Actions 工作流文件
-        </h2>
+        <h2 className="font-display text-lg font-semibold text-amber-950">{t('hosting.patTitle')}</h2>
         <p className="mt-2 text-sm leading-relaxed text-amber-950/90">
-          部分 Personal Access Token 没有 <code className="rounded bg-white px-1 font-mono text-xs">workflow</code>{' '}
-          权限时，GitHub 会拒绝包含 <code className="rounded bg-white px-1 font-mono text-xs">.github/workflows/</code>{' '}
-          的推送。可在网页上手动创建同名文件：复制仓库内{' '}
-          <code className="rounded bg-white px-1 font-mono text-xs">hosting/deploy-pages.workflow.yml</code>{' '}
-          的内容到{' '}
-          <code className="rounded bg-white px-1 font-mono text-xs">.github/workflows/deploy-pages.yml</code>
-          （去掉文件头两行说明注释亦可）。
+          {t('hosting.patBody')}
+          <code className={`${codeXs} mx-0.5`}>{t('hosting.patFile')}</code>{' '}
+          {t('hosting.patTo')}{' '}
+          <code className={codeXs}>{t('hosting.patTarget')}</code>
+          {t('hosting.patEnd')}
         </p>
       </section>
 
       <section>
-        <h2 className="font-display text-xl font-semibold text-stone-900">第一次发布：四步</h2>
+        <h2 className="font-display text-xl font-semibold text-stone-900">{t('hosting.stepsTitle')}</h2>
         <ol className="mt-6 space-y-4">
           {steps.map((s, i) => (
             <li
@@ -122,11 +95,11 @@ export function HostingGuide() {
       </section>
 
       <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-        <h2 className="font-display text-xl font-semibold text-stone-900">以后怎么更新</h2>
+        <h2 className="font-display text-xl font-semibold text-stone-900">{t('hosting.updateTitle')}</h2>
         <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-stone-700">
-          <li>在本地修改代码。</li>
+          <li>{t('hosting.u1')}</li>
           <li>
-            在项目根目录执行：
+            {t('hosting.u2')}
             <pre className="mt-3 overflow-x-auto rounded-xl bg-stone-900 p-4 text-sm text-stone-100">
               {`git add -A
 git commit -m "Describe your change"
@@ -134,56 +107,42 @@ git push origin main`}
             </pre>
           </li>
           <li>
-            推送后等待 Actions 绿勾，然后刷新{' '}
-            <span className="font-mono text-stone-800">https://sarajir.github.io/eduai/</span>。
+            {t('hosting.u3')}{' '}
+            <span className="font-mono text-stone-800">{t('hosting.liveUrl')}</span>
           </li>
         </ol>
       </section>
 
       <section className="rounded-2xl border border-stone-200 bg-stone-50/80 p-6">
-        <h2 className="font-display text-xl font-semibold text-stone-900">本地预览（带 /eduai/ 前缀）</h2>
+        <h2 className="font-display text-xl font-semibold text-stone-900">{t('hosting.previewTitle')}</h2>
         <p className="mt-2 text-sm leading-relaxed text-stone-600">
-          开发时 <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs ring-1 ring-stone-200">npm run dev</code>{' '}
-          使用根路径。要模拟线上：
+          <code className={`${codeSm} ring-1 ring-stone-200`}>npm run dev</code>{' '}
+          {t('hosting.previewBody')}
         </p>
         <pre className="mt-4 overflow-x-auto rounded-xl bg-stone-900 p-4 text-sm text-stone-100">
           npm run build
 npm run preview
         </pre>
         <p className="mt-3 text-sm text-stone-600">
-          打开终端提示的地址，并访问{' '}
-          <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs ring-1 ring-stone-200">/eduai/</code>。
+          {t('hosting.previewFoot')}{' '}
+          <code className={`${codeSm} ring-1 ring-stone-200`}>{t('hosting.previewPath')}</code>
         </p>
       </section>
 
       <section className="rounded-2xl border border-amber-200/70 bg-amber-50/40 p-6">
-        <h2 className="font-display text-xl font-semibold text-amber-950">若你改了仓库名</h2>
+        <h2 className="font-display text-xl font-semibold text-amber-950">{t('hosting.renameTitle')}</h2>
         <p className="mt-2 text-sm leading-relaxed text-amber-950/90">
-          构建默认使用仓库名 <strong>eduai</strong> 作为路径前缀。若重命名仓库，请同步修改{' '}
-          <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs">vite.config.ts</code>{' '}
-          中的 <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs">repoName</code>
-          ，否则静态资源会 404。
+          {t('hosting.renamePre')}
+          <strong>eduai</strong>
+          {t('hosting.renamePost')}
         </p>
       </section>
 
       <section className="rounded-2xl border border-stone-200 bg-white p-6 text-sm text-stone-600 shadow-sm">
-        <p className="font-display font-semibold text-stone-900">English summary</p>
+        <p className="font-display font-semibold text-stone-900">{t('hosting.enSummaryTitle')}</p>
         <p className="mt-3 leading-relaxed">
-          Enable <strong>Settings → Pages → Source: GitHub Actions</strong> on{' '}
-          <a
-            href="https://github.com/Sarajir/eduai"
-            className="font-semibold text-bridge-700 underline-offset-2 hover:underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Sarajir/eduai
-          </a>
-          . Pushes to <code className="rounded bg-stone-100 px-1 font-mono text-xs">main</code> run{' '}
-          <code className="rounded bg-stone-100 px-1 font-mono text-xs">.github/workflows/deploy-pages.yml</code>,
-          uploading <code className="rounded bg-stone-100 px-1 font-mono text-xs">dist</code> (with{' '}
-          <code className="rounded bg-stone-100 px-1 font-mono text-xs">404.html</code> for SPA routes)
-          to GitHub Pages. Live URL:{' '}
-          <span className="font-mono text-stone-800">https://sarajir.github.io/eduai/</span>
+          {t('hosting.enSummaryBody')}{' '}
+          <span className="font-mono text-stone-800">{LIVE}</span>
         </p>
       </section>
     </div>

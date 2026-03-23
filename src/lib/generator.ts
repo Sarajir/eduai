@@ -1,4 +1,7 @@
-import { WEEKS, SESSION_SKELETON, type WeekPlan } from '../data/weeks'
+import { WEEKS, type WeekPlan } from '../data/weeks'
+import { getSessionSkeleton, localizeWeek } from '../data/weekLocale'
+import { getGeneratorPackStrings } from '../i18n/generatorPack'
+import type { Lang } from '../i18n/types'
 
 export type GeneratorInput = {
   siteName: string
@@ -7,7 +10,8 @@ export type GeneratorInput = {
   weekFocus: number
   conflicts: string
   trustedAdultLabel: string
-  includeZh: boolean
+  /** Adds the other-language parent one-pager after the primary. */
+  includeBilingualParent: boolean
 }
 
 function splitLines(text: string): string[] {
@@ -22,69 +26,75 @@ function weekByNum(n: number): WeekPlan {
   return WEEKS.find((w) => w.week === n) ?? WEEKS[0]
 }
 
-export function buildPack(input: GeneratorInput) {
-  const week = weekByNum(input.weekFocus)
+export type ParentBlock = {
+  title: string
+  lead: string
+  tryAtHome: string[]
+  phrases: string[]
+  scenarios: string[]
+  lang: 'en' | 'zh'
+}
+
+function buildParentBlock(
+  week: WeekPlan,
+  trusted: string,
+  blockLang: 'en' | 'zh',
+  scenarios: string[],
+  gp: ReturnType<typeof getGeneratorPackStrings>,
+): ParentBlock {
+  const p = gp.parent(blockLang)
+  return {
+    title: p.title(week.title),
+    lead: p.lead(trusted),
+    tryAtHome: p.tryAtHome,
+    phrases: blockLang === 'en' ? week.mantraEn : week.mantraZh,
+    scenarios: scenarios.slice(0, 3),
+    lang: blockLang,
+  }
+}
+
+export function buildPack(input: GeneratorInput, lang: Lang) {
+  const gp = getGeneratorPackStrings(lang)
+  const baseWeek = weekByNum(input.weekFocus)
+  const week = localizeWeek(baseWeek, lang)
   const customScenarios = splitLines(input.conflicts)
   const scenarios =
-    customScenarios.length > 0
-      ? customScenarios
-      : week.scenarios
+    customScenarios.length > 0 ? customScenarios : week.scenarios
 
-  const gradeNote =
-    input.gradeBand === '2-4'
-      ? 'Use very short phrases, visuals on posters, and more movement.'
-      : input.gradeBand === '5-6'
-        ? 'Allow slightly longer debriefs; keep phrases still under 10 words.'
-        : 'Use teen-relevant examples; co-create norms before role-plays.'
+  const gradeNote = gp.gradeNote(input.gradeBand)
+  const skeleton = getSessionSkeleton(lang)
 
   const sessionRunsheet = {
-    header: `${input.siteName} — Week ${week.week}: ${week.title}`,
+    header: gp.sessionHeader(input.siteName, week.week, week.title),
     leader: input.leaderName,
     gradeBand: input.gradeBand,
     gradeNote,
-    skeleton: SESSION_SKELETON,
+    skeleton,
     week,
     scenarios,
     trustedAdult: input.trustedAdultLabel,
   }
 
-  const parentEn = {
-    title: `This week at school: ${week.title}`,
-    lead: `We practiced saying feelings clearly and asking for help from ${input.trustedAdultLabel}.`,
-    tryAtHome: [
-      'Pick one calm moment (after snack or dinner).',
-      'Ask: “What was one feeling word you used today?”',
-      'Model the phrase yourself once: “I feel ___ because ___.”',
-      'If your child is upset, name the body signal first (“hands tight”), then the feeling.',
-    ],
-    phrases: week.mantraEn,
-    scenarios: scenarios.slice(0, 3),
-  }
+  const primaryLang: 'en' | 'zh' = lang === 'zh' ? 'zh' : 'en'
+  const secondaryLang: 'en' | 'zh' = primaryLang === 'zh' ? 'en' : 'zh'
 
-  const parentZh = input.includeZh
-    ? {
-        title: `本周在校主题：${week.title}`,
-        lead: `我们在练习把感受说清楚，并在需要时向「${input.trustedAdultLabel}」求助。`,
-        tryAtHome: [
-          '选一个平静的时间（点心后或晚饭后）。',
-          '问孩子：「今天你用到了哪个感受词？」',
-          '家长示范一次：「我现在感到 ___，因为 ___。」',
-          '如果孩子激动，先描述身体信号（手很紧），再说感受词。',
-        ],
-        phrases: week.mantraZh,
-        scenarios: scenarios.slice(0, 3),
-      }
+  const parentPrimary = buildParentBlock(
+    week,
+    input.trustedAdultLabel,
+    primaryLang,
+    scenarios,
+    gp,
+  )
+
+  const parentSecondary = input.includeBilingualParent
+    ? buildParentBlock(week, input.trustedAdultLabel, secondaryLang, scenarios, gp)
     : null
 
-  const observation = {
-    title: 'After-session educator check (60 seconds)',
-    items: [
-      'Participation overall (low / mixed / high)',
-      'Did you hear a target phrase used spontaneously?',
-      'Which scenario card felt “not like our class”?',
-      'One tweak for next week (wording, order, or grouping)',
-    ],
+  return {
+    sessionRunsheet,
+    parentPrimary,
+    parentSecondary,
+    observation: gp.observation,
+    week,
   }
-
-  return { sessionRunsheet, parentEn, parentZh, observation, week }
 }

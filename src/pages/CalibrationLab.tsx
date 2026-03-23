@@ -1,49 +1,59 @@
 import { useMemo, useState } from 'react'
 import { PageHeader } from '../components/PageHeader'
 import { buildCalibrationPack, type CalibrationInput } from '../lib/calibrationPack'
+import type { Lang } from '../i18n/types'
+import { useI18n } from '../i18n/context'
 
-const defaultIn: CalibrationInput = {
-  cohortLabel: 'Afterschool cohort',
-  focus: 'math',
-  gradeBand: '5-6',
-  classContext: 'Students rush and skip checking their work when problems look familiar.',
-  taskDescription: 'Two short word problems + one “explain your steps” prompt (10 minutes max).',
+function defaultsFor(lang: Lang): CalibrationInput {
+  if (lang === 'zh') {
+    return {
+      cohortLabel: '课后班试点',
+      focus: 'math',
+      gradeBand: '5-6',
+      classContext: '题目看起来眼熟时，学生容易跳着写完、不检查。',
+      taskDescription: '两道应用题 + 一道「写出你的步骤」（最多 10 分钟）。',
+    }
+  }
+  return {
+    cohortLabel: 'Afterschool cohort',
+    focus: 'math',
+    gradeBand: '5-6',
+    classContext:
+      'Students rush and skip checking their work when problems look familiar.',
+    taskDescription:
+      'Two short word problems + one “explain your steps” prompt (10 minutes max).',
+  }
 }
 
 const fieldClass =
   'mt-1.5 w-full rounded-xl border border-stone-200 bg-white px-3.5 py-2.5 text-stone-900 shadow-sm outline-none focus:border-bridge-300 focus:ring-2 focus:ring-bridge-500/20'
 
 export function CalibrationLab() {
-  const [form, setForm] = useState<CalibrationInput>(defaultIn)
-  const pack = useMemo(() => buildCalibrationPack(form), [form])
+  const { lang, t } = useI18n()
+  const [form, setForm] = useState<CalibrationInput>(() => defaultsFor(lang))
+  const pack = useMemo(() => buildCalibrationPack(form, lang), [form, lang])
 
   return (
     <div className="space-y-10">
       <div className="no-print">
         <PageHeader
-          eyebrow="Learning science lab"
-          title="Calibration Studio"
+          eyebrow={t('calibration.eyebrow')}
+          title={t('calibration.title')}
           description={
             <>
-              A printable <strong>predict → try → compare</strong> micro-protocol to practice
-              metacognitive calibration in class. It complements the SEL generator: here the focus
-              is how students <em>judge</em> their own performance before and after a bounded
-              task. Aligns with common classroom calibration cycles discussed in metacognition
-              research (predictive monitoring before feedback).
+              {t('calibration.desc1')} {t('calibration.desc2')}
             </>
           }
         />
         <p className="rounded-2xl border border-violet-200/80 bg-violet-50/60 px-4 py-3 text-sm text-violet-950">
-          <strong>No server AI.</strong> You type the context; the site assembles facilitator
-          language you should still edit for your students. Not therapy or testing—skill practice
-          only.
+          {t('calibration.noAi')}
         </p>
       </div>
 
       <div className="no-print grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:items-start">
         <form className="space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm lg:sticky lg:top-24">
           <label className="block text-sm font-semibold text-stone-700">
-            Cohort / class label
+            {t('calibration.cohort')}
             <input
               className={fieldClass}
               value={form.cohortLabel}
@@ -51,7 +61,7 @@ export function CalibrationLab() {
             />
           </label>
           <label className="block text-sm font-semibold text-stone-700">
-            Focus domain
+            {t('calibration.focus')}
             <select
               className={fieldClass}
               value={form.focus}
@@ -59,15 +69,15 @@ export function CalibrationLab() {
                 setForm({ ...form, focus: e.target.value as CalibrationInput['focus'] })
               }
             >
-              <option value="math">Math / problem solving</option>
-              <option value="reading">Reading</option>
-              <option value="science">Science reasoning</option>
-              <option value="emotion-vocab">Emotion vocabulary</option>
-              <option value="mixed">Mixed skills</option>
+              <option value="math">{t('calibration.focusMath')}</option>
+              <option value="reading">{t('calibration.focusReading')}</option>
+              <option value="science">{t('calibration.focusScience')}</option>
+              <option value="emotion-vocab">{t('calibration.focusEmotion')}</option>
+              <option value="mixed">{t('calibration.focusMixed')}</option>
             </select>
           </label>
           <label className="block text-sm font-semibold text-stone-700">
-            Grade band
+            {t('calibration.gradeBand')}
             <select
               className={fieldClass}
               value={form.gradeBand}
@@ -81,7 +91,7 @@ export function CalibrationLab() {
             </select>
           </label>
           <label className="block text-sm font-semibold text-stone-700">
-            Class context
+            {t('calibration.classContext')}
             <textarea
               rows={3}
               className={fieldClass}
@@ -90,7 +100,7 @@ export function CalibrationLab() {
             />
           </label>
           <label className="block text-sm font-semibold text-stone-700">
-            Task description (what students will attempt)
+            {t('calibration.taskDesc')}
             <textarea
               rows={3}
               className={fieldClass}
@@ -103,29 +113,30 @@ export function CalibrationLab() {
             onClick={() => window.print()}
             className="w-full rounded-full bg-violet-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-violet-600/25 hover:bg-violet-500"
           >
-            Print / Save PDF
+            {t('calibration.print')}
           </button>
         </form>
-        <p className="text-sm text-stone-500 lg:hidden">Scroll for the printable pack preview.</p>
+        <p className="text-sm text-stone-500 lg:hidden">{t('calibration.scrollHint')}</p>
       </div>
 
       <article className="space-y-8 rounded-3xl border border-stone-200 bg-white p-8 shadow-lg print:border-0 print:shadow-none sm:p-10">
         <header className="border-b border-stone-200 pb-6">
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-violet-600">
-            Calibration Lab
+            {t('calibration.brand')}
           </p>
           <h2 className="font-display mt-2 text-3xl font-semibold text-stone-900">{pack.title}</h2>
           <p className="mt-1 text-sm font-medium text-stone-600">{pack.subtitle}</p>
           <p className="mt-4 rounded-xl bg-stone-50 p-4 text-sm leading-relaxed text-stone-700">
-            <span className="font-semibold text-stone-900">Why this structure:</span> {pack.researchNote}
+            <span className="font-semibold text-stone-900">{t('calibration.whyTitle')}</span>{' '}
+            {pack.researchNote}
           </p>
           <p className="mt-3 text-sm text-bridge-800">
-            <span className="font-semibold">Grade-band tip:</span> {pack.gradeHint}
+            <span className="font-semibold">{t('calibration.gradeTip')}</span> {pack.gradeHint}
           </p>
         </header>
 
         <section>
-          <h3 className="font-display text-xl font-semibold text-stone-900">Facilitator timeline</h3>
+          <h3 className="font-display text-xl font-semibold text-stone-900">{t('calibration.facTitle')}</h3>
           <ol className="mt-4 space-y-4">
             {pack.facilitatorSteps.map((s, i) => (
               <li
@@ -133,7 +144,7 @@ export function CalibrationLab() {
                 className="rounded-2xl border border-stone-100 bg-stone-50/80 p-4 sm:p-5"
               >
                 <p className="text-xs font-bold uppercase tracking-wide text-violet-700">
-                  Step {i + 1} · {s.title}
+                  {t('calibration.step')} {i + 1} · {s.title}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-stone-700">{s.body}</p>
               </li>
@@ -142,9 +153,7 @@ export function CalibrationLab() {
         </section>
 
         <section className="break-inside-avoid-page">
-          <h3 className="font-display text-xl font-semibold text-stone-900">
-            Student calibration slips (duplicate & cut)
-          </h3>
+          <h3 className="font-display text-xl font-semibold text-stone-900">{t('calibration.slipsTitle')}</h3>
           <div className="mt-4 rounded-2xl border border-dashed border-stone-300 bg-white p-6">
             <ul className="space-y-2 font-mono text-sm text-stone-800">
               {pack.slips.map((line) => (
