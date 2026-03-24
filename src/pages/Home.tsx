@@ -173,12 +173,6 @@ export function Home() {
           >
             {t('home.btnLog')}
           </Link>
-          <Link
-            to="/publish"
-            className="rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-bold text-stone-800 hover:border-bridge-400"
-          >
-            {t('home.btnDeploy')}
-          </Link>
         </div>
       </section>
 

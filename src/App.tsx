@@ -5,7 +5,6 @@ import { Program } from './pages/Program'
 import { Generator } from './pages/Generator'
 import { Log } from './pages/Log'
 import { Safety } from './pages/Safety'
-import { HostingGuide } from './pages/HostingGuide'
 import { CalibrationLab } from './pages/CalibrationLab'
 import { PerspectiveLab } from './pages/PerspectiveLab'
 import { Community } from './pages/Community'
@@ -26,7 +25,6 @@ export default function App() {
           <Route path="/perspective" element={<PerspectiveLab />} />
           <Route path="/safety" element={<Safety />} />
           <Route path="/support" element={<SupportHub />} />
-          <Route path="/publish" element={<HostingGuide />} />
           <Route path="/community" element={<Community />} />
         </Route>
       </Routes>

@@ -13,7 +13,6 @@ const navConfig = [
   { to: '/safety', key: 'safety' as const },
   { to: '/support', key: 'support' as const },
   { to: '/community', key: 'community' as const },
-  { to: '/publish', key: 'deploy' as const },
 ]
 
 export function Layout() {
@@ -233,11 +232,6 @@ export function Layout() {
               <li>
                 <Link to="/support" className="text-stone-600 hover:text-bridge-700">
                   {t('footer.supportCrisis')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/publish" className="text-stone-600 hover:text-bridge-700">
-                  {t('footer.deployPages')}
                 </Link>
               </li>
               <li>
